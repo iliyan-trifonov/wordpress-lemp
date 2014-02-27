@@ -1,0 +1,28 @@
+server {
+        listen 80 default_server;
+
+        root /var/www/wordpress;
+        index index.php index.html;
+
+        server_name _;
+
+        location ~* ^.+.(jpg|jpeg|gif|css|png|js|ico|xml)$ {
+                access_log        off;
+                expires           30d;
+        }
+
+        location / {
+                try_files $uri $uri/ /index.php;
+        }
+
+        location ~ \.php$ {
+                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                fastcgi_pass 127.0.0.1:9000;
+                fastcgi_index index.php;
+                include fastcgi_params;
+        }
+
+        location ~ /\.ht {
+               deny all;
+        }
+}
