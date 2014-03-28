@@ -4,6 +4,14 @@ Wordpress on a LEMP stack + sshd and wp-cli
 This repo builds automatically the Trusted Build image
 [on the Docker's index here.](https://index.docker.io/u/iliyan/docker-wordpress-lemp/ "Wordpress on a LEMP stack + sshd and wp-cli")
 
+See it in action
+---
+
+I am using it for [my blog here](http://blog.iliyan-trifonov.com "Iliyan Trifonov's Tech Blog")
+It's running behind the main nginx server on the host.
+
+Some mysql variables are changed with a little increase in values like: innodb_log_file_size = 32M, tmp_table_size = 32M, max_heap_table_size = 32M, query_cache_limit = 2M
+
 Percona Mysql Server
 ---
 
@@ -36,6 +44,18 @@ the only changes for sshd are the ones suggested by the docker team for Ubuntu 1
 
 `LANG="en_US.UTF-8"` -> `/etc/default/locale`
 
+Backup/Update the Docker image/container
+---
+If you've made some changes through ssh or other way inside the container(you definitely made many changes in the DB by using the blog and adding posts/comments), you better keep the changes (it's better to stop the running services inside the container(one by one or with `docker stop wordpress`) before commit but it will still work if you don't do it, depends on the server load):
+
+`docker commit --run='{"Cmd":["sh","/run_all_servers.sh"]}' yourname/wordpress`
+
+Rerun the container from the latest image (don't wait and let all commands execute asap):
+`docker stop wordpress && docker rm wordpress && docker run -d --name wordpress -p 80:80 yourname/wordpres`
+
+You may want to change `-p 80:80` to `-p 172.17.42.1:yourport:80` if you want to put it behind a proxy like I did.
+
+
 Other
 ---
 
@@ -47,7 +67,7 @@ Ssh to the container
 
 From inside the environment where the docker is running:
 
-`docker inspect wordpress`
+`docker inspect wordpress` or the better one: `docker inspect --format='{{.NetworkSettings.IPAddress}}' wordpress`
 
 get the ip from the information shown, for example let it be `172.17.0.2`
 
