@@ -2,8 +2,6 @@ FROM ubuntu:13.10
 
 MAINTAINER Iliyan Trifonov <iliyan.trifonov@gmail.com>
 
-RUN cat /proc/mounts > /etc/mtab
-
 RUN echo "deb mirror://mirrors.ubuntu.com/mirrors.txt saucy main restricted universe multiverse" > /etc/apt/sources.list;\
 	echo "deb mirror://mirrors.ubuntu.com/mirrors.txt saucy-updates main restricted universe multiverse" >> /etc/apt/sources.list;\
 	echo "deb mirror://mirrors.ubuntu.com/mirrors.txt saucy-backports main restricted universe multiverse" >> /etc/apt/sources.list;\
