@@ -1,15 +1,15 @@
-FROM ubuntu:13.10
+FROM ubuntu:14.04
 
 MAINTAINER Iliyan Trifonov <iliyan.trifonov@gmail.com>
 
-RUN echo "deb mirror://mirrors.ubuntu.com/mirrors.txt saucy main restricted universe multiverse" > /etc/apt/sources.list;\
-	echo "deb mirror://mirrors.ubuntu.com/mirrors.txt saucy-updates main restricted universe multiverse" >> /etc/apt/sources.list;\
-	echo "deb mirror://mirrors.ubuntu.com/mirrors.txt saucy-backports main restricted universe multiverse" >> /etc/apt/sources.list;\
-	echo "deb mirror://mirrors.ubuntu.com/mirrors.txt saucy-security main restricted universe multiverse" >> /etc/apt/sources.list
+RUN echo "deb mirror://mirrors.ubuntu.com/mirrors.txt trusty main restricted universe multiverse" > /etc/apt/sources.list;\
+	echo "deb mirror://mirrors.ubuntu.com/mirrors.txt trusty-updates main restricted universe multiverse" >> /etc/apt/sources.list;\
+	echo "deb mirror://mirrors.ubuntu.com/mirrors.txt trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list;\
+	echo "deb mirror://mirrors.ubuntu.com/mirrors.txt trusty-security main restricted universe multiverse" >> /etc/apt/sources.list
 
 RUN apt-key adv --keyserver keys.gnupg.net --recv-keys 1C4CBDCDCD2EFD2A;\
-	echo "deb http://repo.percona.com/apt saucy main" >> /etc/apt/sources.list;\
-	echo "deb-src http://repo.percona.com/apt saucy main" >> /etc/apt/sources.list
+	echo "deb http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list;\
+	echo "deb-src http://repo.percona.com/apt trusty main" >> /etc/apt/sources.list
 
 RUN export DEBIAN_FRONTEND=noninteractive;\
 	apt-get update;\
