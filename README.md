@@ -10,8 +10,6 @@ See it in action
 I am using it for [my blog here](http://blog.iliyan-trifonov.com "Iliyan Trifonov's Tech Blog")
 It's running behind the main nginx server on the host.
 
-Some mysql variables are changed with a little increase in values like: innodb_log_file_size = 32M, tmp_table_size = 32M, max_heap_table_size = 32M, query_cache_limit = 2M
-
 Percona Mysql Server
 ---
 
@@ -23,11 +21,12 @@ The server is installed quietly so you have to tighten its security if you're go
 containers in production.
 
 
-NGINX, PHP5 FPM
+NGINX, PHP7 FPM
 ---
 
 These servers are installed with their defaults and only the default site config of nginx is changed with the one
-comming from the package's `./nginx/default` file
+comming from the package's `./nginx/default` file.
+The PHP configuration is updated to run it on 127.0.0.1 instead of using a socket file.
 
 WP-Cli
 ---
@@ -112,3 +111,9 @@ Dockerfile with this cms.
 
 I am thinking about trying LocomotiveCMS and finally building a blog from scratch to get some
 new skills through the process. Stay tuned!
+
+TODO
+---
+
+1. Introduce additional docker run options to allow setting/overriding all possible auth keys from wp-config: improves security.
+2. Use external data volume or folder to allowe quick upgrade + rebuild the mysql wordpress database, reinstall wordpress if they are not initialized yet.
